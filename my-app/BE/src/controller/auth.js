@@ -39,7 +39,20 @@ export const getUser = async (req, res) => {
 };
 export const getUsers = async (req, res) => {
     try {
-      const response = await userModel.find();
+      const response = await userModel.find(); 
+      res.send(response); 
+    } catch (error) {
+      console.error(error); 
+      res.status(500).send(error.message);
+    }
+  };
+
+
+  export const deleteUser = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const response = await userModel.findByIdAndDelete(id);
       res.send(response);
     } catch (error) {
       console.error(error);
