@@ -4,7 +4,10 @@ import {
   getUser,
   getUsers,
   deleteUser,
+
   updateUser
+
+
 } from "../controller/auth.js";
 
 const userRouter = Router();
@@ -12,8 +15,13 @@ const userRouter = Router();
 userRouter
   .post("/create", createUser)
   .get("/:id", getUser)
+
   .get("/", getUsers)
   .delete("/:id/delete", deleteUser)
   .put("/:id/update",updateUser)
+
+  .get("/users", getUsers)
+  .delete("/:id/delete", deleteUser);
+
 
 export { userRouter };
