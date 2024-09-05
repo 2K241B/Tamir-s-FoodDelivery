@@ -37,3 +37,12 @@ export const getUser = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+export const getUsers = async (req, res) => {
+    try {
+      const response = await userModel.find();
+      res.send(response);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+    }
+  };
