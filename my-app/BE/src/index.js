@@ -1,21 +1,25 @@
 import express from "express";
+import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import cors from "cors";
+import { Connect } from "./utils/db.js";
+import { userRouter } from "./router/auth.js";
 
 dotenv.config();
 
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
-const PORT = process.env.PORT || 8000;
+app.use("/user", userRouter);
 
-app.get("/", (req, res) => {
-    return res.status(200).json("hello world");
-});
+app.get("/", (_, res) => {
+    return res.status(200).json('hello world');
+})
 
 app.listen(PORT, () => {
+    Connect(process.env.MONGODB_URI);
     console.log("listening on port " + PORT);
-});
+  });
