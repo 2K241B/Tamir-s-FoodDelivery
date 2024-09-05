@@ -1,27 +1,10 @@
 import { Router } from "express";
 import {
-  createUser,
-  getUser,
-  getUsers,
-  deleteUser,
-
-  updateUser
-
-
+  Login
 } from "../controller/auth.js";
 
-const userRouter = Router();
+const loginrouter = Router();
 
-userRouter
-  .post("/create", createUser)
-  .get("/:id", getUser)
-
-  .get("/", getUsers)
-  .delete("/:id/delete", deleteUser)
-  .put("/:id/update",updateUser)
-
-  .get("/users", getUsers)
-  .delete("/:id/delete", deleteUser);
-
-
-export { userRouter };
+loginrouter
+  .post("/",Login)
+export { loginrouter };

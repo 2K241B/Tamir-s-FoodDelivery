@@ -1,92 +1,39 @@
 import { userModel } from "../schema/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const saltRounds = 10;
-
-export const createUser = async (req, res) => {
-    const { email, name, password, phoneNumber, role } = req.body;
-  
+export const Login = async (req, res) => {
     try {
-      const salt = await bcrypt.genSalt(saltRounds);
-      const hash = await bcrypt.hash(password, salt);
-  
-      const response = await userModel.create({
-        email,
-        name,
-        password: hash,
-        phoneNumber,
-        role,
-      });
-  
-      res.status(200).send(response);
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).send("Email and password are required");
+        }
+        const response = await userModel.findOne({ email });
+
+        if (!response) {
+            return res.status(404).send("User not found");
+        }
+        bcrypt.compare(password, response.password, function (err, result) {
+            if (err) {
+                return res.status(500).send("Error comparing passwords");
+            }
+
+            if (result) {
+                const privateKey = '123'; 
+                const token = jwt.sign({ id: response._id, email: response.email }, privateKey, {
+                    expiresIn: '1h'
+                });
+
+                return res.send({ token });
+            } else {
+                return res.status(401).send('Incorrect password');
+            }
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
+        console.error(error);
+        res.status(500).send(error.message);
     }
-  };
+}
 
 
-export const getUser = async (req, res) => {
-  const { id } = req.params;
 
-  try {
-    const response = await userModel.findById(id);
-    res.send(response);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error.message);
-  }
-};
-export const getUsers = async (req, res) => {
-    try {
-      const response = await userModel.find(); 
-      res.send(response); 
-    } catch (error) {
-      console.error(error); 
-      res.status(500).send(error.message);
-    }
-  };
-
-
-  export const deleteUser = async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const response = await userModel.findByIdAndDelete(id);
-      res.send(response);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
-    }
-  };
-
-
-  export const deleteUser = async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const response = await userModel.findByIdAndDelete(id);
-      res.send(response);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
-    }
-  };
-
-  export const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const { name, email, role, phoneNumber } = req.body;
-  
-    try {
-      const response = await userModel.findByIdAndUpdate(id, {
-        name,
-        email,
-        role,
-        phoneNumber,
-      });
-      res.send(response);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
-    }
-  };

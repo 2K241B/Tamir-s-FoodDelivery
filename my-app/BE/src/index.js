@@ -3,7 +3,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Connect } from "./utils/db.js";
-import { userRouter } from "./router/auth.js";
+import { userRouter } from "./router/user.js";
+import { loginrouter } from "./router/auth.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/user", userRouter);
+app.use("/login",loginrouter)
 
 app.get("/", (_, res) => {
     return res.status(200).json('hello world');
