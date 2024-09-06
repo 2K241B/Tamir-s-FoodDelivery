@@ -1,39 +1,33 @@
 import { userModel } from "../schema/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const Login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).send("Email and password are required");
-        }
-        const response = await userModel.findOne({ email });
+  const { email, password } = req.body;
 
-        if (!response) {
-            return res.status(404).send("User not found");
-        }
-        bcrypt.compare(password, response.password, function (err, result) {
-            if (err) {
-                return res.status(500).send("Error comparing passwords");
-            }
+  const SECRET_KEY = process.env.SECRET_KEY;
+  
+  try {
+    const user = await userModel.findOne({ email });
+    if (!user) return res.status(400).send({ message: "User not found" });
 
-            if (result) {
-                const privateKey = '123'; 
-                const token = jwt.sign({ id: response._id, email: response.email }, privateKey, {
-                    expiresIn: '1h'
-                });
+    const isMatch =  await bcrypt.compare(password, user.password);
 
-                return res.send({ token });
-            } else {
-                return res.status(401).send('Incorrect password');
-            }
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(error.message);
-    }
-}
+    if (!isMatch)
+      return res.status(403).send({ message: "username or password wrong" });
 
-
-
+    const token = jwt.sign({ user }, SECRET_KEY);
+    res.cookie('token', token, {
+        httpOnly: true, 
+        secure: false,  
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 
+      }).json({ message: 'Login successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
+};
