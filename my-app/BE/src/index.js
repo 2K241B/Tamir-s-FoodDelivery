@@ -12,16 +12,18 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
-
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}));
 app.use("/user", userRouter);
-app.use("/login",loginrouter)
+app.use("/auth", loginrouter); 
 
 app.get("/", (_, res) => {
     return res.status(200).json('hello world');
-})
+});
 
 app.listen(PORT, () => {
     Connect(process.env.MONGODB_URI);
     console.log("listening on port " + PORT);
-  });
+});

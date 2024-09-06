@@ -6,5 +6,5 @@ import {
 const loginrouter = Router();
 
 loginrouter
-  .post("/",Login)
+  .post("/login",Login)
 export { loginrouter };
