@@ -7,12 +7,13 @@ import { axiosInstance } from '@/lib/axios';
 import { useRouter } from 'next/navigation';
 import debounce from 'lodash/debounce';
 
-export const page = () => {
+export const Page = () => {
     const router = useRouter();
     const [isChecked, setIsChecked] = useState(false);
     const [isHidePassword, setIsHidePassword] = useState(true);
     const togglePasswordVisibility = () => setIsHidePassword((prev) => !prev);
-    const Icon = isHidePassword ? EyeOff : EyeIcon;
+    const PasswordIcon = isHidePassword ? EyeOff : EyeIcon;
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -27,27 +28,34 @@ export const page = () => {
             [event.target.name]: event.target.value,
         }));
     };
+
     const debounceFn = useMemo(() => debounce(handleOnChange, 500), []);
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
+    useEffect(() => {
+        return () => {
+            debounceFn.cancel();
+        };
+    }, [debounceFn]);
 
-    //     if (formData.password === formData.rePassword) {
-    //         try {
-    //             const response = await axiosInstance.post('/user/create', {
-    //                 name: formData.name,
-    //                 email: formData.email,
-    //                 phone: formData.phoneNumber,
-    //                 password: formData.password,
-    //             });
-    //             if (response.status === 200) router.push('/login');
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     } else {
-    //         return console.log('wrong password');
-    //     }
-    // };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (formData.password === formData.rePassword) {
+            try {
+                const response = await axiosInstance.post('/user/create', {
+                    name: formData.name,
+                    email: formData.email,
+                    phoneNumber: formData.phoneNumber,
+                    password: formData.password,
+                });
+                if (response.status === 200) router.push('/login');
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            alert('Нууц үг тохирохгүй байна');
+        }
+    };
 
     return (
         <form
@@ -58,7 +66,7 @@ export const page = () => {
                 Бүртгүүлэх
             </h2>
             <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-1 w-full text-sm">
+                <div className="flex flex-col w-full gap-1 text-sm">
                     <h3>Нэр</h3>
                     <Input
                         name="name"
@@ -69,7 +77,7 @@ export const page = () => {
                         required
                     />
                 </div>
-                <div className="flex flex-col gap-1 w-full text-sm">
+                <div className="flex flex-col w-full gap-1 text-sm">
                     <h3>И-мэйл</h3>
                     <Input
                         name="email"
@@ -80,7 +88,7 @@ export const page = () => {
                         required
                     />
                 </div>
-                <div className="flex flex-col gap-1 w-full text-sm">
+                <div className="flex flex-col w-full gap-1 text-sm">
                     <h3>Утасны дугаар</h3>
                     <Input
                         name="phoneNumber"
@@ -91,7 +99,7 @@ export const page = () => {
                         required
                     />
                 </div>
-                <div className="flex flex-col gap-1 w-full text-sm">
+                <div className="flex flex-col w-full gap-1 text-sm">
                     <h3>Нууц үг</h3>
                     <div className="w-full flex items-center justify-between border-[#ECEDF0] border-[0.5px] bg-[#F7F7F8] text-[#8B8E95] rounded-[4px] pr-3">
                         <Input
@@ -102,13 +110,13 @@ export const page = () => {
                             className="bg-[#F7F7F8] border-0"
                             required
                         />
-                        <Icon
+                        <PasswordIcon
                             onClick={togglePasswordVisibility}
                             className="cursor-pointer"
                         />
                     </div>
                 </div>
-                <div className="flex flex-col gap-1 w-full text-sm">
+                <div className="flex flex-col w-full gap-1 text-sm">
                     <h3>Нууц үг давтах</h3>
                     <div className="w-full flex items-center justify-between border-[#ECEDF0] border-[0.5px] bg-[#F7F7F8] text-[#8B8E95] rounded-[4px] pr-3">
                         <Input
@@ -119,7 +127,7 @@ export const page = () => {
                             className="bg-[#F7F7F8] border-0"
                             required
                         />
-                        <Icon
+                        <PasswordIcon
                             onClick={togglePasswordVisibility}
                             className="cursor-pointer"
                         />
@@ -157,4 +165,4 @@ export const page = () => {
     );
 };
 
-export default page;
+export default Page;

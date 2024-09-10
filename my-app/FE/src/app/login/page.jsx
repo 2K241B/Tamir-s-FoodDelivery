@@ -103,7 +103,7 @@ export const page = () => {
         <p>Эсвэл</p>
         <Button
           type="button"
-          onClick={() => router.push('/signup')}
+          onClick={() => router.push('/sign-up')}
           className={styles.ButtonStyle2}
         >
           Бүртгүүлэх
