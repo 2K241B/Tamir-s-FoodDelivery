@@ -2,7 +2,8 @@ import Termscon from '@/components/icons/termsicon';
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-6 items-start min-h-[1153px] pt-[48px] px-[120px]">
+    <div className='flex justify-center'>
+      <div className="flex flex-col gap-6 items-start min-h-[1153px] pt-[48px] px-[120px] w-[1400px] justify-center">
       <div className="flex items-center gap-1">
         <Termscon />
         <h3 className="text-[22px] font-bold">Үйлчилгээний нөхцөл</h3>
@@ -58,6 +59,7 @@ const page = () => {
         байгууллага гэх/ болон хэрэглэгч /цаашид хэрэглэгч гэх/ хамтран хяналт
         тавина.
       </div>
+    </div>
     </div>
   );
 };
