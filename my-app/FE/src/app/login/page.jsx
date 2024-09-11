@@ -7,20 +7,16 @@ import { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { axiosInstance } from '@/lib/axios';
 
-export const styles = {
-  container:
-    'w-[448px] h-fit rounded-[16px] flex flex-col gap-[48px]  p-8 bg-white m-auto pt-[143px] pb-[107px]',
+ const styles = {
+  container:'w-[448px] h-fit rounded-[16px] flex flex-col gap-[48px]  p-8 bg-white m-auto pt-[143px] pb-[107px]',
   header: 'text-[#0D1118] text-center text-[28px] font-bold',
   form: 'flex flex-col items-start gap-4 w-full text-sm',
   inputContainer: 'flex flex-col gap-1 w-full text-sm',
   subContainer: 'flex flex-col w-full gap-8 items-center text-sm',
-  input:
-    'w-full flex items-center justify-between border-[#ECEDF0] border-[0.5px] bg-[#F7F7F8] text-[#8B8E95] rounded-[4px] pr-3',
-  ButtonStyle1:
-    'disabled:bg-[#EEEFF2] disabled:text-[#1C20243D] font-normal px-4 py-2 bg-[#18BA51] text-white',
-  ButtonStyle2:
-    'bg-white border-[#18BA51] border-[1px] text-[#272727] font-normal px-4 py-2 hover:bg-[#18BA51] hover:text-white',
-  borderOff: 'bg-[#F7F7F8] border-0',
+  input:'w-full flex items-center justify-between border-[#ECEDF0] border-[0.5px] bg-[#F7F7F8] text-[#8B8E95] rounded-[4px] pr-3',
+  ButtonStyle1:'disabled:bg-[#EEEFF2] disabled:text-[#1C20243D] font-normal px-4 py-2 bg-[#18BA51] text-white',
+  ButtonStyle2:'bg-white border-[#18BA51] border-[1px] text-[#272727] font-normal px-4 py-2 hover:bg-[#18BA51] hover:text-white',
+  borderOff:'bg-[#F7F7F8] border-0',
 };
 
 export const page = () => {
