@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from './ui/input-otp';
 
 
+
+
+
 export const OTP = () => {
   const [value, setValue] = useState('');
   return (
@@ -34,7 +37,7 @@ export const OTP = () => {
       </div>
       <Button
         disabled={value.length === 4 ? false : true}
-        className='disabled:bg-[#EEEFF2] disabled:text-[#1C20243D] font-normal px-4 py-2 bg-[#18BA51] text-white'
+        className='bg-[#EEEFF2] disabled:text-[#1C20243D] font-normal px-4 py-2  hover:bg-[#18BA51] text-white'
       >
         Үргэлжлүүлэх
       </Button>
