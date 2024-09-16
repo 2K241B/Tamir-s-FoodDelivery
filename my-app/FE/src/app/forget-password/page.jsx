@@ -1,27 +1,22 @@
 'use client';
-import { useState } from 'react';
-import NewPassword from '@/components/NewPassword';
+import ForgotPass from '../../components/EmialInput';
 import OTP from '@/components/OTP';
-import EmailInput from '../../components/EmialInput'; 
+import NewPassword from '../../components/NewPassword';
+import { createContext, useState } from 'react';
 
-const Page = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+export const DataContext = createContext();
 
-  const handleNext = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
-  };
-
-  const handlePrevious = () => {
-    setCurrentStep((prevStep) => prevStep - 1);
-  };
+const page = () => {
+  const [pageCurrent, setPageCurrent] = useState(0);
+  const [userData, setUserData] = useState();
 
   return (
-    <div className='w-[448px] h-fit rounded-[16px] flex flex-col gap-[48px] p-8 bg-white m-auto pt-[143px] pb-[107px]'>
-      {currentStep === 1 && <EmailInput onNext={handleNext} />}
-      {currentStep === 2 && <OTP onNext={handleNext} onPrevious={handlePrevious} />}
-      {currentStep === 3 && <NewPassword onPrevious={handlePrevious} />}
-    </div>
+    <DataContext.Provider value={{ setPageCurrent, setUserData, userData }}>
+      {pageCurrent === 0 && <ForgotPass />}
+      {pageCurrent === 1 && <OTP />}
+      {pageCurrent === 2 && <NewPassword />}
+    </DataContext.Provider>
   );
 };
 
-export default Page;
+export default page;
