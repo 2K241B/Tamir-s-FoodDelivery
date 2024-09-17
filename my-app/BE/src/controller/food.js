@@ -18,3 +18,13 @@ export const createFood = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+
+export const getFoods = async (req, res) => {
+    try {
+      const response = await foodModel.find().populate('categoryId');
+      return res.status(200).json(response);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(error);
+    }
+  };
