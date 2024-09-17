@@ -11,7 +11,6 @@ export const createOTP = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    
     await otpModel.findOneAndDelete({ email });
     await otpModel.create({ email, otp: randomNumber, createdAt: new Date() });
     await sendMail({ to: email, otp: randomNumber });
@@ -25,24 +24,15 @@ export const createOTP = async (req, res) => {
 
 export const Check = async (req, res) => {
   const { email, otp } = req.body;
+
   try {
-    const otpRecord = await otpModel.findOne({ email, otp });
-    if (!otpRecord) {
-      return res.status(404).json({ message: 'OTP not found or incorrect' });
-    }
-    
-    const currentTime = new Date();
-    const timeDiff = (currentTime - new Date(otpRecord.createdAt)) / 1000 / 60; 
-    
-    if (timeDiff > 5) {
-      await otpModel.findOneAndDelete({ email, otp });
-      return res.status(400).json({ message: 'OTP expired' });
-    }
-    
-    await otpModel.findOneAndDelete({ email, otp });
-    return res.status(200).json({ message: 'OTP verified successfully' });
+    const response = await otpModel.findOneAndDelete({ email, otp });
+
+    if (!response) return res.status(404).send('OTP not found');
+
+    return res.status(200).json(response);
   } catch (error) {
-    console.error('Error verifying OTP:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.log(error);
+    return res.status(500).json(error);
   }
 };
