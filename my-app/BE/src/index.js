@@ -10,6 +10,7 @@ import {getmail} from "./controller/checkmail.js"
 import otp from "./router/otp.js";
 import category from "./router/category.js";
 import order from "./router/order.js";
+import food from "./router/food.js";
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ app.get("/checkmail",getmail)
 app.use("/otp" , otp)
 app.use("/category" , category);
 app.use("/order",order);
+app.use("/food",food)
+
 
 app.get("/", (_, res) => {
     return res.status(200).json('hello world');
