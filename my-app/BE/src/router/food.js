@@ -4,6 +4,7 @@ import {
   updateFood,
   getFood,
   getFoods,
+  foodDelete
 } from '../controller/food.js';
 
 const food = Router();
@@ -13,4 +14,5 @@ food
   .get("/get",getFoods)
   .get("/get/:id",getFood)
   .put("/update/:id",updateFood)
+  .delete("/delete/:id",foodDelete)
 export default food;
