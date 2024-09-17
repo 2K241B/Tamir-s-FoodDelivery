@@ -2,7 +2,8 @@ import { Router } from 'express';
 import {
   createOrder,
   getAllOrders,
-  getOneOrder
+  getOneOrder,
+  updateOrder
 
 } from '../controller/order.js';
 
@@ -12,6 +13,7 @@ order
   .post('/create', createOrder)
   .get("/get",getAllOrders)
   .get("/get/:id",getOneOrder)
+  .put("/update/:id",updateOrder)
 
 
 export default order;
