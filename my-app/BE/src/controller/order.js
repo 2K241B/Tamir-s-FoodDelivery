@@ -35,3 +35,16 @@ export const createOrder = async (req, res) => {
     return res.status(500).json({ error: 'Failed to create order' });
   }
 };
+
+
+import { orderModel } from '../schema/order.js';
+
+export const getAllOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find(); 
+    return res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    return res.status(500).json({ error: 'Failed to fetch orders' });
+  }
+};
