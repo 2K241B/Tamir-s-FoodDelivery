@@ -2,6 +2,9 @@ import { model, Schema } from 'mongoose';
 
 const foodSchema = new Schema({
   name: { type: String, required: [true, 'Name is required'] },
+  category: { type: String, 
+    enum: ["BreakFast", "Soup", "Main Course", "Desert"],
+    default: "BreakFast"},
   image: { type: String },
   ingeredient: { type: String },
   price: { type: String, required: [true, 'Price is required'] },
