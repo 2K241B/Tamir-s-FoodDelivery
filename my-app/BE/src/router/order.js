@@ -3,8 +3,8 @@ import {
   createOrder,
   getAllOrders,
   getOneOrder,
-  updateOrder
-
+  updateOrder,
+  deleteOrder
 } from '../controller/order.js';
 
 const order = Router();
@@ -14,6 +14,7 @@ order
   .get("/get",getAllOrders)
   .get("/get/:id",getOneOrder)
   .put("/update/:id",updateOrder)
+  .delete("/delete/:id",deleteOrder)
 
 
 export default order;

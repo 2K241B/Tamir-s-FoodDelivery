@@ -76,3 +76,19 @@ export const updateOrder = async (req, res) => {
     return res.status(500).json({ error: 'Failed to update order' });
   }
 };
+
+export const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedOrder = await orderModel.findByIdAndDelete(id); 
+    if (!deletedOrder) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    return res.status(200).json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    return res.status(500).json({ error: 'Failed to delete order' });
+  }
+};
+
