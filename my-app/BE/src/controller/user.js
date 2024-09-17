@@ -62,18 +62,24 @@ export const getUsers = async (req, res) => {
 
   export const updateUser = async (req, res) => {
     const { id } = req.params;
-    const { name, email, role, phoneNumber } = req.body;
+  
+    const { name, email, password, phone, role } = req.body;
   
     try {
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hash = await bcrypt.hash(password, salt);
+  
       const response = await userModel.findByIdAndUpdate(id, {
         name,
         email,
+        password: hash,
+        phone,
         role,
-        phoneNumber,
       });
-      res.send(response);
+      return res.status(200).json(response);
     } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
+      console.log(error);
+      return res.status(500).json(error);
     }
   };
+  

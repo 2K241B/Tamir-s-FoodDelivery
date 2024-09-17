@@ -15,7 +15,7 @@ userRouter
   .post("/create", createUser)
   .get("/:id",Checktoken,getUser)
   .get("/", Checktoken,CheckRole,getUsers)
-  .put("/:id/update",updateUser)
+  .put("/update/:id",updateUser)
   .get("/users", getUsers)
   .delete("/:id/delete", deleteUser)
 
