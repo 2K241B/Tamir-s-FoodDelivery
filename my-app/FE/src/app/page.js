@@ -12,6 +12,7 @@ export default function Home() {
   const getFoods = async () => {
     try {
       const { data } = await axiosInstance.get('/food/get');
+      console.log(data);
       const groupedData = groupBy(data, (item) => item.categoryId.name);
       setFoods(groupedData);
     } catch (error) {
