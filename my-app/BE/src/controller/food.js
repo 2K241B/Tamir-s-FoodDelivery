@@ -1,12 +1,13 @@
 import { foodModel } from '../schema/food.js';
 
 export const createFood = async (req, res) => {
-  const { name, image, ingeredient, price, discount, categoryId } = req.body;
+  const { name ,category, image, ingeredient, price, discount, categoryId } = req.body;
 
   try {
     const response = await foodModel.create({
       name,
       image,
+      category,
       ingeredient,
       price,
       discount,
