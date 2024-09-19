@@ -30,7 +30,6 @@ export const getFoods = async (req, res) => {
     }
   };
 
-
   export const getFood = async (req, res) => {
     const { id } = req.params;
   
