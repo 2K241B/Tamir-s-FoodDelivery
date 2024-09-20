@@ -13,11 +13,11 @@ const userRouter = Router();
 
 userRouter
   .post("/create", createUser)
-  .get("/:id",Checktoken,getUser)
   .get("/", Checktoken,CheckRole,getUsers)
-  .put("/update/:id",updateUser)
   .get("/users", getUsers)
   .delete("/:id/delete", deleteUser)
+  .put("/update/:id",updateUser)
+  .get("/:id",Checktoken,getUser)
 
   
 export { userRouter };
