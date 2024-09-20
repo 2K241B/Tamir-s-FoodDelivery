@@ -11,8 +11,8 @@ const category = Router();
 category
   .post('/create', createCategory)
   .get('/get',getCategory)
-  .put('/update',updateCategory)
-  .delete('/delete',deleteCategory)
+  .put('/update/:id',updateCategory)
+  .delete('/delete/:id',deleteCategory)
 
 
 export default category;

@@ -12,7 +12,7 @@ const food = Router();
 food
   .post('/create', createFood)
   .get("/get",getFoods)
-  .get("/get/:id",getFood)
+  .get("/:id",getFood)
   .put("/update/:id",updateFood)
   .delete("/delete/:id",foodDelete)
 export default food;
