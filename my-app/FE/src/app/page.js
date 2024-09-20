@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { axiosInstance } from '@/lib/axios';
 import { groupBy } from 'lodash';
 import HomeFea from '@/components/HomeFea';
-import Card from '@/components/Card';
+import Card from '@/components/card';
 import CategoryCard from '@/components/categoryCard';
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
       setFoods(groupedData);
     } catch (error) {
       console.error('Error :', error);
-    }
+    } 
   };
 
   useEffect(() => {

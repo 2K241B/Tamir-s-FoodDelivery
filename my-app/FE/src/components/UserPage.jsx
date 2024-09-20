@@ -1,5 +1,5 @@
 'use client';
-import TimeIcon from './icons/TimeIcon';
+import TimeIcon from './icons/LogoutIcon';
 import PenIcon from './icons/PenIcon';
 import PhoneIcon from './icons/PhoneIcon';
 import ExitIcon from './icons/ExitIcon';
