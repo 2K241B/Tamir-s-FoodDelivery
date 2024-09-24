@@ -3,7 +3,8 @@ import {
   createCategory,
   getCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getCategoriesAndFoods
 } from '../controller/category.js';
 
 const category = Router();
@@ -11,8 +12,9 @@ const category = Router();
 category
   .post('/create', createCategory)
   .get('/get',getCategory)
-  .put('/update',updateCategory)
-  .delete('/delete',deleteCategory)
+  .get('/foods', getCategoriesAndFoods)
+  .put('/update/:id',updateCategory)
+  .delete('/delete/:id',deleteCategory)
 
 
 export default category;
